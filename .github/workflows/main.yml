@@ -1,7 +1,8 @@
 on:
   pull_request:
   push:
-    branches: [master]
+    branches:
+      - master
 name: Test
 jobs:
   test:
@@ -9,14 +10,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node: [14, 16, 18]
+        os:
+          - ubuntu-latest
+        node:
+          - 14
+          - 16
+          - 18
+          - 20
+          - 22
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: yarn install
+          cache: yarn
+      - run: yarn --immutable
       - run: git config --global user.email "patch-package@test.com"
       - run: git config --global user.name "patch-package"
-      - run: yarn run test
+      - run: yarn test

@@ -1,16 +1,21 @@
 {
-  "name": "patch-package",
+  "name": "@unts/patch-package",
   "version": "8.0.0",
   "description": "Fix broken node modules with no fuss",
   "main": "dist/index.js",
-  "repository": "github:ds300/patch-package",
+  "repository": "git+https://github.com/un-ts/patch-package.git",
   "author": "David Sheldrick",
+  "maintainers": [
+    "JounQin (https://www.1stG.me) <admin@1stg.me>"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=14",
     "npm": ">5"
   },
-  "bin": "./index.js",
+  "bin": {
+    "patch-package": "./index.js"
+  },
   "scripts": {
     "prepublishOnly": "yarn run clean && yarn run build",
     "build": "tsc --project tsconfig.build.json",
@@ -48,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
     "@types/app-root-path": "^1.2.4",
     "@types/cross-spawn": "^6.0.0",
     "@types/fs-extra": "^9.0.0",
