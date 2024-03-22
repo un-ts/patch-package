@@ -1,4 +1,4 @@
-import chalk from "chalk"
+import picocolors from "picocolors"
 import console from "console"
 import { renameSync } from "fs"
 import {
@@ -165,7 +165,7 @@ export function makePatch({
   try {
     const patchesDir = resolve(join(appPath, patchDir))
 
-    console.info(chalk.grey("•"), "Creating temporary folder")
+    console.info(picocolors.gray("•"), "Creating temporary folder")
 
     // make a blank package.json
     mkdirpSync(tmpRepoNpmRoot)
@@ -211,7 +211,7 @@ export function makePatch({
 
     if (packageManager === "yarn") {
       console.info(
-        chalk.grey("•"),
+        picocolors.gray("•"),
         `Installing ${packageDetails.name}@${packageVersion} with yarn`,
       )
       const yarnArgs = ["install"]
@@ -243,7 +243,7 @@ export function makePatch({
       }
     } else {
       console.info(
-        chalk.grey("•"),
+        picocolors.gray("•"),
         `Installing ${packageDetails.name}@${packageVersion} with npm`,
       )
       try {
@@ -279,7 +279,7 @@ export function makePatch({
     removeSync(join(tmpRepoPackagePath, STATE_FILE_NAME))
 
     // commit the package
-    console.info(chalk.grey("•"), "Diffing your files with clean files")
+    console.info(picocolors.gray("•"), "Diffing your files with clean files")
     writeFileSync(join(tmpRepo.name, ".gitignore"), "!/node_modules\n\n")
     git("init")
     git("config", "--local", "user.name", "patch-package")
@@ -359,12 +359,12 @@ export function makePatch({
       const err = e as Error
       if (err.message.includes("Unexpected file mode string: 120000")) {
         console.log(`
-⛔️ ${chalk.red.bold("ERROR")}
+⛔️ ${picocolors.red(picocolors.bold("ERROR"))}
 
   Your changes involve creating symlinks. patch-package does not yet support
   symlinks.
   
-  ️Please use ${chalk.bold("--include")} and/or ${chalk.bold(
+  ️Please use ${picocolors.bold("--include")} and/or ${picocolors.bold(
           "--exclude",
         )} to narrow the scope of your patch if
   this was unintentional.
@@ -381,7 +381,7 @@ export function makePatch({
           ),
         )
         console.log(`
-⛔️ ${chalk.red.bold("ERROR")}
+⛔️ ${picocolors.red(picocolors.bold("ERROR"))}
         
   patch-package was unable to read the patch-file made by git. This should not
   happen.
@@ -466,9 +466,9 @@ export function makePatch({
           })
           console.log(
             "Renaming",
-            chalk.bold(p.patchFilename),
+            picocolors.bold(p.patchFilename),
             "to",
-            chalk.bold(newName),
+            picocolors.bold(newName),
           )
           const oldPath = join(appPath, patchDir, p.patchFilename)
           const newPath = join(appPath, patchDir, newName)
@@ -479,7 +479,10 @@ export function makePatch({
 
     writeFileSync(patchPath, diffResult.stdout)
     console.log(
-      `${chalk.green("✔")} Created file ${join(patchDir, patchFileName)}\n`,
+      `${picocolors.green("✔")} Created file ${join(
+        patchDir,
+        patchFileName,
+      )}\n`,
     )
 
     const prevState: PatchState[] = patchesToApplyBeforeDiffing.map(
@@ -528,7 +531,7 @@ export function makePatch({
             })
             break
           } else {
-            console.log(`  ${chalk.green("✔")} ${patch.patchFilename}`)
+            console.log(`  ${picocolors.green("✔")} ${patch.patchFilename}`)
             nextState.push({
               patchFilename: patch.patchFilename,
               didApply: true,
@@ -605,23 +608,23 @@ export function logPatchSequenceError({
   patchDetails: PatchedPackageDetails
 }) {
   console.log(`
-${chalk.red.bold("⛔ ERROR")}
+${picocolors.red(picocolors.bold("⛔ ERROR"))}
 
-Failed to apply patch file ${chalk.bold(patchDetails.patchFilename)}.
+Failed to apply patch file ${picocolors.bold(patchDetails.patchFilename)}.
 
 If this patch file is no longer useful, delete it and run
 
-  ${chalk.bold(`patch-package`)}
+  ${picocolors.bold(`patch-package`)}
 
 To partially apply the patch (if possible) and output a log of errors to fix, run
 
-  ${chalk.bold(`patch-package --partial`)}
+  ${picocolors.bold(`patch-package --partial`)}
 
 After which you should make any required changes inside ${
     patchDetails.path
   }, and finally run
 
-  ${chalk.bold(`patch-package ${patchDetails.pathSpecifier}`)}
+  ${picocolors.bold(`patch-package ${patchDetails.pathSpecifier}`)}
 
 to update the patch file.
 `)
