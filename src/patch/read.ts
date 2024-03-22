@@ -1,5 +1,5 @@
 import picocolors from "picocolors"
-import { readFileSync } from "fs-extra"
+import { readFileSync } from "fs"
 import { relative, resolve } from "../path"
 import { normalize } from "path"
 import { PackageDetails } from "../PackageDetails"

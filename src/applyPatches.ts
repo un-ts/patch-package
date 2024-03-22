@@ -1,6 +1,5 @@
 import picocolors from "picocolors"
-import { writeFileSync } from "fs"
-import { existsSync } from "fs-extra"
+import { writeFileSync, existsSync } from "fs"
 import { posix } from "path"
 import semver from "semver"
 import { hashFile } from "./hash"

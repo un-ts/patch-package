@@ -1,4 +1,5 @@
-import fs from "fs-extra"
+import fs from "fs"
+import fse from "fs-extra"
 import { dirname, join, relative, resolve } from "path"
 import { ParsedPatchFile, FilePatch, Hunk } from "./parse"
 import { assertNever } from "../assertNever"
@@ -48,7 +49,7 @@ export const executeEffects = (
           }
         } else {
           try {
-            fs.moveSync(inCwd(eff.fromPath), inCwd(eff.toPath))
+            fse.moveSync(inCwd(eff.fromPath), inCwd(eff.toPath))
           } catch (e) {
             if (bestEffort) {
               errors?.push(
@@ -76,7 +77,7 @@ export const executeEffects = (
             : ""
           const path = inCwd(eff.path)
           try {
-            fs.ensureDirSync(dirname(path))
+            fse.ensureDirSync(dirname(path))
             fs.writeFileSync(path, fileContents, { mode: eff.mode })
           } catch (e) {
             if (bestEffort) {
