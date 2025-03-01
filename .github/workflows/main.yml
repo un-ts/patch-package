@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - fork-release
 name: Test
 jobs:
   test:

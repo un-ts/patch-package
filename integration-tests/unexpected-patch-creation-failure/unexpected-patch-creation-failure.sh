@@ -9,7 +9,7 @@ echo "modify left-pad"
 npx replace leftPad patchPackage node_modules/left-pad/index.js
 
 echo "force patch-package to fail"
-npx replace 'parsePatchFile\(' 'blarseBlatchBlile(' node_modules/patch-package/dist/makePatch.js
+npx replace 'parsePatchFile\(' 'blarseBlatchBlile(' node_modules/@unts/patch-package/dist/makePatch.js
 
 echo "there is no error log file"
 if ls ./patch-package-error.json.gz

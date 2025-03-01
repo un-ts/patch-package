@@ -1,7 +1,7 @@
 # postinstall
 
 # if we're running in the main repo is ok
-if ls ../patch-package ;
+if ls ../@unts/patch-package ;
 then
   exit 0
 fi

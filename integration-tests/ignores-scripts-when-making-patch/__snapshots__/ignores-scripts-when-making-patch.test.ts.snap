@@ -15,7 +15,7 @@ END SNAPSHOT"
 exports[`Test ignores-scripts-when-making-patch: 01: a patch file got produced 1`] = `
 "SNAPSHOT: a patch file got produced
 diff --git a/node_modules/naughty-package/postinstall.sh b/node_modules/naughty-package/postinstall.sh
-index 3784520..c4af29c 100755
+index 7f5c683..5f061a8 100755
 --- a/node_modules/naughty-package/postinstall.sh
 +++ b/node_modules/naughty-package/postinstall.sh
 @@ -1,4 +1,4 @@
@@ -23,6 +23,6 @@ index 3784520..c4af29c 100755
 +# lol
  
  # if we're running in the main repo is ok
- if ls ../patch-package ;
+ if ls ../@unts/patch-package ;
 END SNAPSHOT"
 `;

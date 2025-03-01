@@ -15,9 +15,9 @@ exports[`Test package-gets-updated: 01: warning when the patch was applied but v
 success Saved lockfile.
 success Saved 1 new dependency.
 info Direct dependencies
-└─ patch-package@0.0.0
+└─ @unts/patch-package@0.0.0
 info All dependencies
-└─ patch-package@0.0.0
+└─ @unts/patch-package@0.0.0
 $ patch-package
 patch-package 0.0.0
 Applying patches...
