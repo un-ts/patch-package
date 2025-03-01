@@ -1,14 +1,14 @@
-import fs from "fs"
-import { join } from "./path"
-import picocolors from "picocolors"
-import process from "process"
 import findWorkspaceRoot from "find-yarn-workspace-root"
+import fs from "fs"
+import { bold, red } from "picocolors"
+import process from "process"
+import { join } from "./path"
 
 export type PackageManager = "yarn" | "npm" | "npm-shrinkwrap"
 
 function printNoYarnLockfileError() {
   console.log(`
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
+${red(bold("**ERROR**"))} ${red(
     `The --use-yarn option was specified but there is no yarn.lock file`,
   )}
 `)
@@ -16,7 +16,7 @@ ${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
 
 function printNoLockfilesError() {
   console.log(`
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
+${red(bold("**ERROR**"))} ${red(
     `No package-lock.json, npm-shrinkwrap.json, or yarn.lock file.
 
 You must use either npm@>=5, yarn, or npm-shrinkwrap to manage this project's
@@ -27,10 +27,8 @@ dependencies.`,
 
 function printSelectingDefaultMessage() {
   console.info(
-    `${picocolors.bold(
-      "patch-package",
-    )}: you have both yarn.lock and package-lock.json
-Defaulting to using ${picocolors.bold("npm")}
+    `${bold("patch-package")}: you have both yarn.lock and package-lock.json
+Defaulting to using ${bold("npm")}
 You can override this setting by passing --use-yarn or deleting
 package-lock.json if you don't need it
 `,

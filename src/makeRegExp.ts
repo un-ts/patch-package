@@ -1,4 +1,4 @@
-import picocolors from "picocolors"
+import { bold, red } from "picocolors"
 
 export const makeRegExp = (
   reString: string,
@@ -12,7 +12,7 @@ export const makeRegExp = (
     try {
       return new RegExp(reString, caseSensitive ? "" : "i")
     } catch (_) {
-      console.log(`${picocolors.red(picocolors.bold("***ERROR***"))}
+      console.log(`${red(bold("***ERROR***"))}
 Invalid format for option --${name}
 
   Unable to convert the string ${JSON.stringify(

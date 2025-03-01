@@ -1,6 +1,6 @@
+import { existsSync } from "fs"
 import { PatchedPackageDetails } from "./PackageDetails"
 import { join } from "./path"
-import { existsSync } from "fs"
 
 export function packageIsDevDependency({
   appPath,

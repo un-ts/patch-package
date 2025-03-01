@@ -1,5 +1,5 @@
-import picocolors from "picocolors"
 import { join, resolve } from "path"
+import { blue, bold, cyan, red } from "picocolors"
 import { applyPatch } from "./applyPatches"
 import { hashFile } from "./hash"
 import { PatchedPackageDetails } from "./PackageDetails"
@@ -25,17 +25,14 @@ export function rebase({
   const groupedPatches = getGroupedPatches(patchesDirectory)
 
   if (groupedPatches.numPatchFiles === 0) {
-    console.log(picocolors.blue("No patch files found"))
+    console.log(blue("No patch files found"))
     process.exit(1)
   }
 
   const packagePatches =
     groupedPatches.pathSpecifierToPatchFiles[packagePathSpecifier]
   if (!packagePatches) {
-    console.log(
-      picocolors.blue("No patch files found for package"),
-      packagePathSpecifier,
-    )
+    console.log(blue("No patch files found for package"), packagePathSpecifier)
     process.exit(1)
   }
 
@@ -43,18 +40,18 @@ export function rebase({
 
   if (!state) {
     console.log(
-      picocolors.blue("No patch state found"),
+      blue("No patch state found"),
       "Did you forget to run",
-      picocolors.bold("patch-package"),
+      bold("patch-package"),
       "(without arguments) first?",
     )
     process.exit(1)
   }
   if (state.isRebasing) {
     console.log(
-      picocolors.blue("Already rebasing"),
+      blue("Already rebasing"),
       "Make changes to the files in",
-      picocolors.bold(packagePatches[0].path),
+      bold(packagePatches[0].path),
       "and then run `patch-package",
       packagePathSpecifier,
       "--continue` to",
@@ -71,7 +68,7 @@ export function rebase({
   }
   if (state.patches.length !== packagePatches.length) {
     console.log(
-      picocolors.blue("Some patches have not been applied."),
+      blue("Some patches have not been applied."),
       "Reinstall node_modules and try again.",
     )
   }
@@ -91,11 +88,11 @@ export function rebase({
       patches: [],
     })
     console.log(`
-Make any changes you need inside ${picocolors.bold(packagePatches[0].path)}
+Make any changes you need inside ${bold(packagePatches[0].path)}
 
 When you are done, run
 
-  ${picocolors.bold(
+  ${bold(
     `patch-package ${packagePathSpecifier} --append 'MyChangeDescription'`,
   )}
   
@@ -127,10 +124,7 @@ to insert a new patch file.
   })
 
   if (!target) {
-    console.log(
-      picocolors.red("Could not find target patch file"),
-      picocolors.bold(targetPatch),
-    )
+    console.log(red("Could not find target patch file"), bold(targetPatch))
     console.log()
     console.log("The list of available patch files is:")
     packagePatches.forEach((p) => {
@@ -146,8 +140,8 @@ to insert a new patch file.
   )
   if (!prevApplication) {
     console.log(
-      picocolors.red("Could not find previous application of patch file"),
-      picocolors.bold(target.patchFilename),
+      red("Could not find previous application of patch file"),
+      bold(target.patchFilename),
     )
     console.log()
     console.log("You should reinstall node_modules and try again.")
@@ -173,19 +167,19 @@ to insert a new patch file.
   })
 
   console.log(`
-Make any changes you need inside ${picocolors.bold(packagePatches[0].path)}
+Make any changes you need inside ${bold(packagePatches[0].path)}
 
 When you are done, do one of the following:
 
-  To update ${picocolors.bold(packagePatches[targetIdx].patchFilename)} run
+  To update ${bold(packagePatches[targetIdx].patchFilename)} run
 
-    ${picocolors.bold(`patch-package ${packagePathSpecifier}`)}
+    ${bold(`patch-package ${packagePathSpecifier}`)}
     
-  To create a new patch file after ${picocolors.bold(
+  To create a new patch file after ${bold(
     packagePatches[targetIdx].patchFilename,
   )} run
   
-    ${picocolors.bold(
+    ${bold(
       `patch-package ${packagePathSpecifier} --append 'MyChangeDescription'`,
     )}
 
@@ -213,15 +207,12 @@ function unApplyPatches({
       })
     ) {
       console.log(
-        picocolors.red("Failed to un-apply patch file"),
-        picocolors.bold(patch.patchFilename),
+        red("Failed to un-apply patch file"),
+        bold(patch.patchFilename),
         "Try completely reinstalling node_modules.",
       )
       process.exit(1)
     }
-    console.log(
-      picocolors.cyan(picocolors.bold("Un-applied")),
-      patch.patchFilename,
-    )
+    console.log(cyan(bold("Un-applied")), patch.patchFilename)
   }
 }

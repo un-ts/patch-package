@@ -86,9 +86,9 @@
     "klaw-sync": "^6.0.0",
     "minimist": "^1.2.6",
     "open": "^7.4.2",
-    "picocolors": "^1.0.0",
+    "picocolors": "^1.1.1",
     "semver": "^7.5.3",
-    "slash": "^2.0.0",
+    "slash": "^3.0.0",
     "tmp": "^0.0.33",
     "yaml": "^2.2.2"
   },

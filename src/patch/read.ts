@@ -1,8 +1,8 @@
-import picocolors from "picocolors"
 import { readFileSync } from "fs"
-import { relative, resolve } from "../path"
 import { normalize } from "path"
+import { bold, red } from "picocolors"
 import { PackageDetails } from "../PackageDetails"
+import { relative, resolve } from "../path"
 import { parsePatchFile, PatchFilePart } from "./parse"
 
 export function readPatch({
@@ -41,8 +41,8 @@ export function readPatch({
     }
 
     console.log(`
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
-      `Failed to apply patch for package ${picocolors.bold(
+${red(bold("**ERROR**"))} ${red(
+      `Failed to apply patch for package ${bold(
         patchDetails.humanReadablePathSpecifier,
       )}`,
     )}

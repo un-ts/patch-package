@@ -1,9 +1,9 @@
+import stringify from "@nolyfill/json-stable-stringify"
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs"
 import { join } from "path"
-import { PackageDetails } from "./PackageDetails"
-import stringify from "@nolyfill/json-stable-stringify"
+import { blue } from "picocolors"
 import { hashFile } from "./hash"
-import picocolors from "picocolors"
+import { PackageDetails } from "./PackageDetails"
 export interface PatchState {
   patchFilename: string
   patchContentHash: string
@@ -89,7 +89,7 @@ export function verifyAppliedPatches({
     const fullPatchPath = join(patchesDirectory, patch.patchFilename)
     if (!existsSync(fullPatchPath)) {
       console.log(
-        picocolors.blue("Expected patch file"),
+        blue("Expected patch file"),
         fullPatchPath,
         "to exist but it is missing. Try removing and reinstalling node_modules first.",
       )
@@ -97,7 +97,7 @@ export function verifyAppliedPatches({
     }
     if (patch.patchContentHash !== hashFile(fullPatchPath)) {
       console.log(
-        picocolors.blue("Patch file"),
+        blue("Patch file"),
         fullPatchPath,
         "has changed since it was applied. Try removing and reinstalling node_modules first.",
       )

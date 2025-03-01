@@ -1,6 +1,6 @@
-import picocolors from "picocolors"
-import { writeFileSync, existsSync } from "fs"
+import { existsSync, writeFileSync } from "fs"
 import { posix } from "path"
+import { blue, bold, cyan, green, red, yellow } from "picocolors"
 import semver from "semver"
 import { hashFile } from "./hash"
 import { logPatchSequenceError } from "./makePatch"
@@ -44,17 +44,16 @@ function getInstalledPackageVersion({
     }
 
     let err =
-      `${picocolors.red(
-        "Error:",
-      )} Patch file found for package ${posix.basename(pathSpecifier)}` +
-      ` which is not present at ${relative(".", packageDir)}`
+      `${red("Error:")} Patch file found for package ${posix.basename(
+        pathSpecifier,
+      )}` + ` which is not present at ${relative(".", packageDir)}`
 
     if (!isDevOnly && process.env.NODE_ENV === "production") {
       err += `
 
   If this package is a dev dependency, rename the patch file to
   
-    ${picocolors.bold(patchFilename.replace(".patch", ".dev.patch"))}
+    ${bold(patchFilename.replace(".patch", ".dev.patch"))}
 `
     }
     throw new PatchApplicationError(err)
@@ -65,7 +64,7 @@ function getInstalledPackageVersion({
   const result = semver.valid(version)
   if (result === null) {
     throw new PatchApplicationError(
-      `${picocolors.red(
+      `${red(
         "Error:",
       )} Version string '${version}' cannot be parsed from ${join(
         packageDir,
@@ -85,9 +84,9 @@ function logPatchApplication(patchDetails: PatchedPackageDetails) {
         })`
       : ""
   console.log(
-    `${picocolors.bold(patchDetails.pathSpecifier)}@${
+    `${bold(patchDetails.pathSpecifier)}@${
       patchDetails.version
-    }${sequenceString} ${picocolors.green("✔")}`,
+    }${sequenceString} ${green("✔")}`,
   )
 }
 
@@ -110,7 +109,7 @@ export function applyPatchesForApp({
   const groupedPatches = getGroupedPatches(patchesDirectory)
 
   if (groupedPatches.numPatchFiles === 0) {
-    console.log(picocolors.blue("No patch files found"))
+    console.log(blue("No patch files found"))
     return
   }
 
@@ -140,10 +139,10 @@ export function applyPatchesForApp({
 
   const problemsSummary = []
   if (warnings.length) {
-    problemsSummary.push(picocolors.yellow(`${warnings.length} warning(s)`))
+    problemsSummary.push(yellow(`${warnings.length} warning(s)`))
   }
   if (errors.length) {
-    problemsSummary.push(picocolors.red(`${errors.length} error(s)`))
+    problemsSummary.push(red(`${errors.length} error(s)`))
   }
 
   if (problemsSummary.length) {
@@ -201,8 +200,8 @@ export function applyPatchesForPackage({
         appliedPatches.push(unappliedPatches.shift()!)
       } else {
         console.log(
-          picocolors.red("Error:"),
-          `The patches for ${picocolors.bold(pathSpecifier)} have changed.`,
+          red("Error:"),
+          `The patches for ${bold(pathSpecifier)} have changed.`,
           `You should reinstall your node_modules folder to make sure the package is up to date`,
         )
         process.exit(1)
@@ -249,9 +248,7 @@ export function applyPatchesForPackage({
       if (!installedPackageVersion) {
         // it's ok we're in production mode and this is a dev only package
         console.log(
-          `Skipping dev-only ${picocolors.bold(
-            pathSpecifier,
-          )}@${version} ${picocolors.blue("✔")}`,
+          `Skipping dev-only ${bold(pathSpecifier)}@${version} ${blue("✔")}`,
         )
         continue
       }
@@ -427,10 +424,7 @@ export function applyPatch({
     const errors: string[] | undefined = bestEffort ? [] : undefined
     executeEffects(forward, { dryRun: false, cwd, bestEffort, errors })
     if (errors?.length) {
-      console.log(
-        "Saving errors to",
-        picocolors.cyan(picocolors.bold("./patch-package-errors.log")),
-      )
+      console.log("Saving errors to", cyan(bold("./patch-package-errors.log")))
       writeFileSync("patch-package-errors.log", errors.join("\n\n"))
       process.exit(0)
     }
@@ -464,20 +458,18 @@ function createVersionMismatchWarning({
   path: string
 }) {
   return `
-${picocolors.yellow(
-  "Warning:",
-)} patch-package detected a patch file version mismatch
+${yellow("Warning:")} patch-package detected a patch file version mismatch
 
   Don't worry! This is probably fine. The patch was still applied
   successfully. Here's the deets:
 
   Patch file created for
 
-    ${packageName}@${picocolors.bold(originalVersion)}
+    ${packageName}@${bold(originalVersion)}
 
   applied to
 
-    ${packageName}@${picocolors.bold(actualVersion)}
+    ${packageName}@${bold(actualVersion)}
   
   At path
   
@@ -487,7 +479,7 @@ ${picocolors.yellow(
   breakage even though the patch was applied successfully. Make sure the package
   still behaves like you expect (you wrote tests, right?) and then run
 
-    ${picocolors.bold(`patch-package ${pathSpecifier}`)}
+    ${bold(`patch-package ${pathSpecifier}`)}
 
   to update the version in the patch file name and make this warning go away.
 `
@@ -505,8 +497,8 @@ function createBrokenPatchFileError({
   pathSpecifier: string
 }) {
   return `
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
-    `Failed to apply patch for package ${picocolors.bold(packageName)} at path`,
+${red(bold("**ERROR**"))} ${red(
+    `Failed to apply patch for package ${bold(packageName)} at path`,
   )}
   
     ${path}
@@ -545,15 +537,13 @@ function createPatchApplicationFailureError({
   pathSpecifier: string
 }) {
   return `
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
-    `Failed to apply patch for package ${picocolors.bold(packageName)} at path`,
+${red(bold("**ERROR**"))} ${red(
+    `Failed to apply patch for package ${bold(packageName)} at path`,
   )}
   
     ${path}
 
-  This error was caused because ${picocolors.bold(
-    packageName,
-  )} has changed since you
+  This error was caused because ${bold(packageName)} has changed since you
   made the patch file for it. This introduced conflicts with your patch,
   just like a merge conflict in Git when separate incompatible changes are
   made to the same piece of code.
@@ -572,10 +562,8 @@ ${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
 
   Info:
     Patch file: patches/${patchFilename}
-    Patch was made for version: ${picocolors.green(
-      picocolors.bold(originalVersion),
-    )}
-    Installed version: ${picocolors.red(picocolors.bold(actualVersion))}
+    Patch was made for version: ${green(bold(originalVersion))}
+    Installed version: ${red(bold(actualVersion))}
 `
 }
 
@@ -587,9 +575,7 @@ function createUnexpectedError({
   error: Error
 }) {
   return `
-${picocolors.red(picocolors.bold("**ERROR**"))} ${picocolors.red(
-    `Failed to apply patch file ${picocolors.bold(filename)}`,
-  )}
+${red(bold("**ERROR**"))} ${red(`Failed to apply patch file ${bold(filename)}`)}
   
 ${error.stack}
 

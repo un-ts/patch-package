@@ -1,5 +1,5 @@
-import picocolors from "picocolors"
 import open from "open"
+import { bold } from "picocolors"
 import { stringify } from "querystring"
 import { PackageManager } from "./detectPackageManager"
 import { PackageDetails } from "./PackageDetails"
@@ -105,7 +105,7 @@ export function maybePrintIssueCreationPrompt(
   packageManager: PackageManager,
 ) {
   if (vcs) {
-    console.log(`💡 ${picocolors.bold(packageDetails.name)} is on ${
+    console.log(`💡 ${bold(packageDetails.name)} is on ${
       vcs.provider
     }! To draft an issue based on your patch run
 
