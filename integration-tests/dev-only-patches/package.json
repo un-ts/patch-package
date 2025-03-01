@@ -10,6 +10,6 @@
     "rimraf": "3.0.0"
   },
   "devDependencies": {
-    "slash": "3.0.0"
+    "slash": "2.0.0"
   }
 }

@@ -13,8 +13,8 @@ echo "SNAPSHOT: patch-package happily ignores slash on CI because it's a dev dep
 patch-package
 echo "END SNAPSHOT"
 
-echo "create fake-package+3.0.0.patch"
-cp patches/slash+3.0.0.patch patches/fake-package+3.0.0.patch
+echo "create fake-package+2.0.0.patch"
+cp patches/slash+2.0.0.patch patches/fake-package+2.0.0.patch
 
 echo "SNAPSHOT: patch-package fails to find fake-package"
 if patch-package
@@ -24,7 +24,7 @@ fi
 echo "END SNAPSHOT"
 
 echo "rename fake-package patch file to .dev.patch"
-mv patches/fake-package+3.0.0.patch patches/fake-package+3.0.0.dev.patch
+mv patches/fake-package+2.0.0.patch patches/fake-package+2.0.0.dev.patch
 
 echo "SNAPSHOT: fake-package should be skipped"
 patch-package
