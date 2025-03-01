@@ -1,5 +1,4 @@
 import colors from "chalk"
-import console from "console"
 import {
   copySync,
   existsSync,

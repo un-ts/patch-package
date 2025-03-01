@@ -1,7 +1,6 @@
 import colors from "chalk"
 import findWorkspaceRoot from "find-yarn-workspace-root"
 import fs from "fs-extra"
-import process from "process"
 import { join } from "./path"
 
 export type PackageManager = "yarn" | "npm" | "npm-shrinkwrap"
