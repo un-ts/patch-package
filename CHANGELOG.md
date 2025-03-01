@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.1.0
+
+### Minor Changes
+
+- [#1](https://github.com/un-ts/patch-package/pull/1)
+  [`71fcada`](https://github.com/un-ts/patch-package/commit/71fcada5c8eba207ace046b80b096042c615afde)
+  Thanks [@SukkaW](https://github.com/SukkaW)! - feat: reduce installation size
+  by replacing `json-stable-stringify` to `@nolyfill/json-stable-stringify`
+
 ## 8.0.0
 
 - Add support for multiple patch files for a single package. #474
