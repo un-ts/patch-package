@@ -1,6 +1,5 @@
-import { join, resolve } from "./path"
-import process from "process"
 import { existsSync } from "fs-extra"
+import { join, resolve } from "./path"
 
 export const getAppRootPath = (): string => {
   let cwd = process.cwd()

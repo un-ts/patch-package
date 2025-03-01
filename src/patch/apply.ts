@@ -1,7 +1,16 @@
-import fs from "fs-extra"
+import {
+  chmodSync,
+  ensureDirSync,
+  existsSync,
+  moveSync,
+  readFileSync,
+  statSync,
+  unlinkSync,
+  writeFileSync,
+} from "fs-extra"
 import { dirname, join, relative, resolve } from "path"
-import { ParsedPatchFile, FilePatch, Hunk } from "./parse"
 import { assertNever } from "../assertNever"
+import { FilePatch, Hunk, ParsedPatchFile } from "./parse"
 
 export const executeEffects = (
   effects: ParsedPatchFile,
@@ -18,7 +27,7 @@ export const executeEffects = (
     switch (eff.type) {
       case "file deletion":
         if (dryRun) {
-          if (!fs.existsSync(inCwd(eff.path))) {
+          if (!existsSync(inCwd(eff.path))) {
             throw new Error(
               "Trying to delete file that doesn't exist: " +
                 humanReadable(eff.path),
@@ -27,7 +36,7 @@ export const executeEffects = (
         } else {
           // TODO: integrity checks
           try {
-            fs.unlinkSync(inCwd(eff.path))
+            unlinkSync(inCwd(eff.path))
           } catch (e) {
             if (bestEffort) {
               errors?.push(`Failed to delete file ${eff.path}`)
@@ -40,7 +49,7 @@ export const executeEffects = (
       case "rename":
         if (dryRun) {
           // TODO: see what patch files look like if moving to exising path
-          if (!fs.existsSync(inCwd(eff.fromPath))) {
+          if (!existsSync(inCwd(eff.fromPath))) {
             throw new Error(
               "Trying to move file that doesn't exist: " +
                 humanReadable(eff.fromPath),
@@ -48,7 +57,7 @@ export const executeEffects = (
           }
         } else {
           try {
-            fs.moveSync(inCwd(eff.fromPath), inCwd(eff.toPath))
+            moveSync(inCwd(eff.fromPath), inCwd(eff.toPath))
           } catch (e) {
             if (bestEffort) {
               errors?.push(
@@ -62,7 +71,7 @@ export const executeEffects = (
         break
       case "file creation":
         if (dryRun) {
-          if (fs.existsSync(inCwd(eff.path))) {
+          if (existsSync(inCwd(eff.path))) {
             throw new Error(
               "Trying to create file that already exists: " +
                 humanReadable(eff.path),
@@ -76,8 +85,8 @@ export const executeEffects = (
             : ""
           const path = inCwd(eff.path)
           try {
-            fs.ensureDirSync(dirname(path))
-            fs.writeFileSync(path, fileContents, { mode: eff.mode })
+            ensureDirSync(dirname(path))
+            writeFileSync(path, fileContents, { mode: eff.mode })
           } catch (e) {
             if (bestEffort) {
               errors?.push(`Failed to create new file ${eff.path}`)
@@ -91,7 +100,7 @@ export const executeEffects = (
         applyPatch(eff, { dryRun, cwd, bestEffort, errors })
         break
       case "mode change":
-        const currentMode = fs.statSync(inCwd(eff.path)).mode
+        const currentMode = statSync(inCwd(eff.path)).mode
         if (
           ((isExecutable(eff.newMode) && isExecutable(currentMode)) ||
             (!isExecutable(eff.newMode) && !isExecutable(currentMode))) &&
@@ -101,7 +110,7 @@ export const executeEffects = (
             `Mode change is not required for file ${humanReadable(eff.path)}`,
           )
         }
-        fs.chmodSync(inCwd(eff.path), eff.newMode)
+        chmodSync(inCwd(eff.path), eff.newMode)
         break
       default:
         assertNever(eff)
@@ -152,8 +161,8 @@ function applyPatch(
 ): void {
   path = cwd ? resolve(cwd, path) : path
   // modifying the file in place
-  const fileContents = fs.readFileSync(path).toString()
-  const mode = fs.statSync(path).mode
+  const fileContents = readFileSync(path).toString()
+  const mode = statSync(path).mode
 
   const fileLines: string[] = fileContents.split(/\n/)
 
@@ -219,7 +228,7 @@ function applyPatch(
   }
 
   try {
-    fs.writeFileSync(path, fileLines.join("\n"), { mode })
+    writeFileSync(path, fileLines.join("\n"), { mode })
   } catch (e) {
     if (bestEffort) {
       errors?.push(`Failed to write file ${path}`)

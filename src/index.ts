@@ -1,16 +1,14 @@
-import chalk from "chalk"
-import process from "process"
+import colors from "chalk"
+import { isCI } from "ci-info"
 import minimist from "minimist"
-
+import { normalize, sep } from "path"
+import slash from "slash"
 import { applyPatchesForApp } from "./applyPatches"
+import { detectPackageManager } from "./detectPackageManager"
 import { getAppRootPath } from "./getAppRootPath"
 import { makePatch } from "./makePatch"
 import { makeRegExp } from "./makeRegExp"
-import { detectPackageManager } from "./detectPackageManager"
 import { join } from "./path"
-import { normalize, sep } from "path"
-import slash = require("slash")
-import { isCI } from "ci-info"
 import { rebase } from "./rebase"
 
 const appPath = getAppRootPath()
@@ -32,7 +30,7 @@ const argv = minimist(process.argv.slice(2), {
 const packageNames = argv._
 
 console.log(
-  chalk.bold("patch-package"),
+  colors.bold("patch-package"),
   // tslint:disable-next-line:no-var-requires
   require(join(__dirname, "../package.json")).version,
 )
@@ -49,7 +47,7 @@ if (argv.version || argv.v) {
   if ("rebase" in argv) {
     if (!argv.rebase) {
       console.log(
-        chalk.red(
+        colors.red(
           "You must specify a patch file name or number when rebasing patches",
         ),
       )
@@ -57,7 +55,7 @@ if (argv.version || argv.v) {
     }
     if (packageNames.length !== 1) {
       console.log(
-        chalk.red(
+        colors.red(
           "You must specify exactly one package name when rebasing patches",
         ),
       )
@@ -133,9 +131,9 @@ Usage:
   1. Patching packages
   ====================
 
-    ${chalk.bold("patch-package")}
+    ${colors.bold("patch-package")}
 
-  Without arguments, the ${chalk.bold(
+  Without arguments, the ${colors.bold(
     "patch-package",
   )} command will attempt to find and apply
   patch files to your project. It looks for files named like
@@ -144,11 +142,11 @@ Usage:
 
   Options:
 
-    ${chalk.bold("--patch-dir <dirname>")}
+    ${colors.bold("--patch-dir <dirname>")}
 
       Specify the name for the directory in which the patch files are located.
       
-    ${chalk.bold("--error-on-fail")}
+    ${colors.bold("--error-on-fail")}
     
       Forces patch-package to exit with code 1 after failing.
     
@@ -157,17 +155,17 @@ Usage:
       yarn.lock and package.json might get out of sync with node_modules,
       which can be very confusing.
       
-      --error-on-fail is ${chalk.bold("switched on")} by default on CI.
+      --error-on-fail is ${colors.bold("switched on")} by default on CI.
       
       See https://github.com/ds300/patch-package/issues/86 for background.
       
-    ${chalk.bold("--error-on-warn")}
+    ${colors.bold("--error-on-warn")}
     
       Forces patch-package to exit with code 1 after warning.
       
       See https://github.com/ds300/patch-package/issues/314 for background.
 
-    ${chalk.bold("--reverse")}
+    ${colors.bold("--reverse")}
         
       Un-applies all patches.
 
@@ -182,7 +180,7 @@ Usage:
   2. Creating patch files
   =======================
 
-    ${chalk.bold("patch-package")} <package-name>${chalk.italic(
+    ${colors.bold("patch-package")} <package-name>${colors.italic(
     "[ <package-name>]",
   )}
 
@@ -191,36 +189,36 @@ Usage:
 
   Options:
   
-    ${chalk.bold("--create-issue")}
+    ${colors.bold("--create-issue")}
     
        For packages whose source is hosted on GitHub this option opens a web
        browser with a draft issue based on your diff.
 
-    ${chalk.bold("--use-yarn")}
+    ${colors.bold("--use-yarn")}
 
         By default, patch-package checks whether you use npm or yarn based on
         which lockfile you have. If you have both, it uses npm by default.
         Set this option to override that default and always use yarn.
 
-    ${chalk.bold("--exclude <regexp>")}
+    ${colors.bold("--exclude <regexp>")}
 
         Ignore paths matching the regexp when creating patch files.
         Paths are relative to the root dir of the package to be patched.
 
         Default: 'package\\.json$'
 
-    ${chalk.bold("--include <regexp>")}
+    ${colors.bold("--include <regexp>")}
 
         Only consider paths matching the regexp when creating patch files.
         Paths are relative to the root dir of the package to be patched.
 
         Default '.*'
 
-    ${chalk.bold("--case-sensitive-path-filtering")}
+    ${colors.bold("--case-sensitive-path-filtering")}
 
         Make regexps used in --include or --exclude filters case-sensitive.
     
-    ${chalk.bold("--patch-dir")}
+    ${colors.bold("--patch-dir")}
 
         Specify the name for the directory in which to put the patch files.
 `)
