@@ -1,4 +1,4 @@
-import { existsSync, writeFileSync } from "fs"
+import { existsSync, writeFileSync } from "fs-extra"
 import { posix } from "path"
 import { blue, bold, cyan, green, red, yellow } from "picocolors"
 import semver from "semver"

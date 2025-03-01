@@ -1,5 +1,5 @@
 import findWorkspaceRoot from "find-yarn-workspace-root"
-import fs from "fs"
+import fs from "fs-extra"
 import { bold, red } from "picocolors"
 import process from "process"
 import { join } from "./path"

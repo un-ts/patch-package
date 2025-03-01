@@ -1,4 +1,4 @@
-import { readFileSync } from "fs"
+import { readFileSync } from "fs-extra"
 import { normalize } from "path"
 import { bold, red } from "picocolors"
 import { PackageDetails } from "../PackageDetails"
