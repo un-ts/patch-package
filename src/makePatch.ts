@@ -1,3 +1,4 @@
+import colors from "chalk-cjs"
 import console from "console"
 import {
   copySync,
@@ -10,7 +11,6 @@ import {
   writeFileSync,
 } from "fs-extra"
 import { dirSync } from "tmp"
-import { bold, gray, green, red } from "picocolors"
 import { gzipSync } from "zlib"
 import { applyPatch } from "./applyPatches"
 import {
@@ -165,7 +165,7 @@ export function makePatch({
   try {
     const patchesDir = resolve(join(appPath, patchDir))
 
-    console.info(gray("•"), "Creating temporary folder")
+    console.info(colors.gray("•"), "Creating temporary folder")
 
     // make a blank package.json
     mkdirpSync(tmpRepoNpmRoot)
@@ -211,7 +211,7 @@ export function makePatch({
 
     if (packageManager === "yarn") {
       console.info(
-        gray("•"),
+        colors.gray("•"),
         `Installing ${packageDetails.name}@${packageVersion} with yarn`,
       )
       const yarnArgs = ["install"]
@@ -243,7 +243,7 @@ export function makePatch({
       }
     } else {
       console.info(
-        gray("•"),
+        colors.gray("•"),
         `Installing ${packageDetails.name}@${packageVersion} with npm`,
       )
       try {
@@ -279,7 +279,7 @@ export function makePatch({
     removeSync(join(tmpRepoPackagePath, STATE_FILE_NAME))
 
     // commit the package
-    console.info(gray("•"), "Diffing your files with clean files")
+    console.info(colors.gray("•"), "Diffing your files with clean files")
     writeFileSync(join(tmpRepo.name, ".gitignore"), "!/node_modules\n\n")
     git("init")
     git("config", "--local", "user.name", "patch-package")
@@ -359,12 +359,12 @@ export function makePatch({
       const err = e as Error
       if (err.message.includes("Unexpected file mode string: 120000")) {
         console.log(`
-⛔️ ${red(bold("ERROR"))}
+⛔️ ${colors.red(colors.bold("ERROR"))}
 
   Your changes involve creating symlinks. patch-package does not yet support
   symlinks.
   
-  ️Please use ${bold("--include")} and/or ${bold(
+  ️Please use ${colors.bold("--include")} and/or ${colors.bold(
           "--exclude",
         )} to narrow the scope of your patch if
   this was unintentional.
@@ -381,7 +381,7 @@ export function makePatch({
           ),
         )
         console.log(`
-⛔️ ${red(bold("ERROR"))}
+⛔️ ${colors.red(colors.bold("ERROR"))}
         
   patch-package was unable to read the patch-file made by git. This should not
   happen.
@@ -464,7 +464,12 @@ export function makePatch({
             sequenceName: p.sequenceName,
             sequenceNumber: next++,
           })
-          console.log("Renaming", bold(p.patchFilename), "to", bold(newName))
+          console.log(
+            "Renaming",
+            colors.bold(p.patchFilename),
+            "to",
+            colors.bold(newName),
+          )
           const oldPath = join(appPath, patchDir, p.patchFilename)
           const newPath = join(appPath, patchDir, newName)
           renameSync(oldPath, newPath)
@@ -473,7 +478,9 @@ export function makePatch({
     }
 
     writeFileSync(patchPath, diffResult.stdout)
-    console.log(`${green("✔")} Created file ${join(patchDir, patchFileName)}\n`)
+    console.log(
+      `${colors.green("✔")} Created file ${join(patchDir, patchFileName)}\n`,
+    )
 
     const prevState: PatchState[] = patchesToApplyBeforeDiffing.map(
       (p): PatchState => ({
@@ -521,7 +528,7 @@ export function makePatch({
             })
             break
           } else {
-            console.log(`  ${green("✔")} ${patch.patchFilename}`)
+            console.log(`  ${colors.green("✔")} ${patch.patchFilename}`)
             nextState.push({
               patchFilename: patch.patchFilename,
               didApply: true,
@@ -598,23 +605,23 @@ export function logPatchSequenceError({
   patchDetails: PatchedPackageDetails
 }) {
   console.log(`
-${red(bold("⛔ ERROR"))}
+${colors.red(colors.bold("⛔ ERROR"))}
 
-Failed to apply patch file ${bold(patchDetails.patchFilename)}.
+Failed to apply patch file ${colors.bold(patchDetails.patchFilename)}.
 
 If this patch file is no longer useful, delete it and run
 
-  ${bold(`patch-package`)}
+  ${colors.bold(`patch-package`)}
 
 To partially apply the patch (if possible) and output a log of errors to fix, run
 
-  ${bold(`patch-package --partial`)}
+  ${colors.bold(`patch-package --partial`)}
 
 After which you should make any required changes inside ${
     patchDetails.path
   }, and finally run
 
-  ${bold(`patch-package ${patchDetails.pathSpecifier}`)}
+  ${colors.bold(`patch-package ${patchDetails.pathSpecifier}`)}
 
 to update the patch file.
 `)

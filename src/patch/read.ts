@@ -1,6 +1,6 @@
+import colors from "chalk-cjs"
 import { readFileSync } from "fs-extra"
 import { normalize } from "path"
-import { bold, red } from "picocolors"
 import { PackageDetails } from "../PackageDetails"
 import { relative, resolve } from "../path"
 import { parsePatchFile, PatchFilePart } from "./parse"
@@ -41,8 +41,8 @@ export function readPatch({
     }
 
     console.log(`
-${red(bold("**ERROR**"))} ${red(
-      `Failed to apply patch for package ${bold(
+${colors.red(colors.bold("**ERROR**"))} ${colors.red(
+      `Failed to apply patch for package ${colors.bold(
         patchDetails.humanReadablePathSpecifier,
       )}`,
     )}

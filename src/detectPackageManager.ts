@@ -1,6 +1,6 @@
+import colors from "chalk-cjs"
 import findWorkspaceRoot from "find-yarn-workspace-root"
 import fs from "fs-extra"
-import { bold, red } from "picocolors"
 import process from "process"
 import { join } from "./path"
 
@@ -8,7 +8,7 @@ export type PackageManager = "yarn" | "npm" | "npm-shrinkwrap"
 
 function printNoYarnLockfileError() {
   console.log(`
-${red(bold("**ERROR**"))} ${red(
+${colors.red(colors.bold("**ERROR**"))} ${colors.red(
     `The --use-yarn option was specified but there is no yarn.lock file`,
   )}
 `)
@@ -16,7 +16,7 @@ ${red(bold("**ERROR**"))} ${red(
 
 function printNoLockfilesError() {
   console.log(`
-${red(bold("**ERROR**"))} ${red(
+${colors.red(colors.bold("**ERROR**"))} ${colors.red(
     `No package-lock.json, npm-shrinkwrap.json, or yarn.lock file.
 
 You must use either npm@>=5, yarn, or npm-shrinkwrap to manage this project's
@@ -27,8 +27,10 @@ dependencies.`,
 
 function printSelectingDefaultMessage() {
   console.info(
-    `${bold("patch-package")}: you have both yarn.lock and package-lock.json
-Defaulting to using ${bold("npm")}
+    `${colors.bold(
+      "patch-package",
+    )}: you have both yarn.lock and package-lock.json
+Defaulting to using ${colors.bold("npm")}
 You can override this setting by passing --use-yarn or deleting
 package-lock.json if you don't need it
 `,

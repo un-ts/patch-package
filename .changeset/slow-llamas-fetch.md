@@ -4,5 +4,5 @@
 
 feat: reduce installation size by replacing several dependencies:
 
-- `chalk` -> `picocolors`
+- `chalk` -> `chalk-cjs`
 - `json-stable-stringify` -> `@nolyfill/json-stable-stringify`
