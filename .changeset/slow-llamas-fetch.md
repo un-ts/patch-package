@@ -1,5 +1,8 @@
 ---
-"@unts/patch-package": patch
+"@unts/patch-package": minor
 ---
 
-Reduce installation size
+feat: reduce installation size by replacing several dependencies:
+
+- `chalk` -> `picocolors`
+- `json-stable-stringify` -> `@nolyfill/json-stable-stringify`
