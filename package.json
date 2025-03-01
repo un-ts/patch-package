@@ -81,7 +81,7 @@
   "dependencies": {
     "@nolyfill/json-stable-stringify": "^1.0.30",
     "@yarnpkg/lockfile": "^1.1.0",
-    "chalk-cjs": "^5.2.0",
+    "chalk": "^4.1.2",
     "ci-info": "^3.7.0",
     "cross-spawn": "^7.0.3",
     "find-yarn-workspace-root": "^2.0.0",

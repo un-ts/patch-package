@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import { readFileSync } from "fs-extra"
 import { normalize } from "path"
 import { PackageDetails } from "../PackageDetails"

@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import console from "console"
 import {
   copySync,

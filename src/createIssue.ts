@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import open from "open"
 import { stringify } from "querystring"
 import { PackageManager } from "./detectPackageManager"

@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import { existsSync, writeFileSync } from "fs-extra"
 import { posix } from "path"
 import semver from "semver"

@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import findWorkspaceRoot from "find-yarn-workspace-root"
 import fs from "fs-extra"
 import process from "process"

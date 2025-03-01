@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import { isCI } from "ci-info"
 import minimist from "minimist"
 import { normalize, sep } from "path"

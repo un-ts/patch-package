@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 import { join, resolve } from "path"
 import { applyPatch } from "./applyPatches"
 import { hashFile } from "./hash"

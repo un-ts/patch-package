@@ -1,4 +1,4 @@
-import colors from "chalk-cjs"
+import colors from "chalk"
 
 export const makeRegExp = (
   reString: string,

@@ -1,5 +1,5 @@
 import stringify from "@nolyfill/json-stable-stringify"
-import colors from "chalk-cjs"
+import colors from "chalk"
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs"
 import { join } from "path"
 import { hashFile } from "./hash"
