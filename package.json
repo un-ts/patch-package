@@ -1,6 +1,6 @@
 {
   "name": "@unts/patch-package",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Fix broken node modules with no fuss",
   "main": "dist/index.js",
   "repository": "git+https://github.com/un-ts/patch-package.git",
