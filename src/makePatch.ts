@@ -1,4 +1,3 @@
-import colors from "chalk"
 import {
   copySync,
   existsSync,
@@ -9,6 +8,7 @@ import {
   renameSync,
   writeFileSync,
 } from "fs-extra"
+import colors from "picocolors"
 import { dirSync } from "tmp"
 import { gzipSync } from "zlib"
 import { applyPatch } from "./applyPatches"

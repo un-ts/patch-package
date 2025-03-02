@@ -1,6 +1,6 @@
-import colors from "chalk"
 import { existsSync, writeFileSync } from "fs-extra"
 import { posix } from "path"
+import colors from "picocolors"
 import semver from "semver"
 import { hashFile } from "./hash"
 import { logPatchSequenceError } from "./makePatch"

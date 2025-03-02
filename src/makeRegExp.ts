@@ -1,4 +1,4 @@
-import colors from "chalk"
+import colors from "picocolors"
 
 export const makeRegExp = (
   reString: string,
