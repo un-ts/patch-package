@@ -1,4 +1,4 @@
-import colors from "colorette"
+import * as colors from "colorette"
 import findWorkspaceRoot from "find-yarn-workspace-root"
 import fs from "fs-extra"
 import { join } from "./path"

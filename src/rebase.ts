@@ -1,4 +1,4 @@
-import colors from "colorette"
+import * as colors from "colorette"
 import { join, resolve } from "path"
 import { applyPatch } from "./applyPatches"
 import { hashFile } from "./hash"

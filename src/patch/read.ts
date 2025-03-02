@@ -1,4 +1,4 @@
-import colors from "colorette"
+import * as colors from "colorette"
 import { readFileSync } from "fs-extra"
 import { normalize } from "path"
 import { PackageDetails } from "../PackageDetails"
