@@ -1,7 +1,7 @@
 import stringify from "@nolyfill/json-stable-stringify"
-import colors from "chalk"
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs"
 import { join } from "path"
+import colors from "picocolors"
 import { hashFile } from "./hash"
 import { PackageDetails } from "./PackageDetails"
 export interface PatchState {

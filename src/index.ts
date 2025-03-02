@@ -1,7 +1,7 @@
-import colors from "chalk"
 import { isCI } from "ci-info"
 import minimist from "minimist"
 import { normalize, sep } from "path"
+import colors from "picocolors"
 import slash from "slash"
 import { applyPatchesForApp } from "./applyPatches"
 import { detectPackageManager } from "./detectPackageManager"

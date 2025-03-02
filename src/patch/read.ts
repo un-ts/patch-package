@@ -1,6 +1,6 @@
-import colors from "chalk"
 import { readFileSync } from "fs-extra"
 import { normalize } from "path"
+import colors from "picocolors"
 import { PackageDetails } from "../PackageDetails"
 import { relative, resolve } from "../path"
 import { parsePatchFile, PatchFilePart } from "./parse"

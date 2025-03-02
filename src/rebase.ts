@@ -1,5 +1,5 @@
-import colors from "chalk"
 import { join, resolve } from "path"
+import colors from "picocolors"
 import { applyPatch } from "./applyPatches"
 import { hashFile } from "./hash"
 import { PatchedPackageDetails } from "./PackageDetails"

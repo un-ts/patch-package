@@ -1,5 +1,5 @@
-import colors from "chalk"
 import open from "open"
+import colors from "picocolors"
 import { stringify } from "querystring"
 import { PackageManager } from "./detectPackageManager"
 import { PackageDetails } from "./PackageDetails"
