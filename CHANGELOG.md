@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.1.1
+
+### Patch Changes
+
+- [#4](https://github.com/un-ts/patch-package/pull/4)
+  [`981528a`](https://github.com/un-ts/patch-package/commit/981528a98c29691ca9c9843b89fcd8502860e21e)
+  Thanks [@JounQin](https://github.com/JounQin)! - chore: migrate `chalk` to
+  `picocolors` and `NO_COLOR` env
+
 ## 8.1.0
 
 ### Minor Changes
