@@ -1,4 +1,4 @@
-import colors from "chalk"
+import colors from "colorette"
 import { isCI } from "ci-info"
 import minimist from "minimist"
 import { normalize, sep } from "path"

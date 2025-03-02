@@ -1,4 +1,4 @@
-import colors from "chalk"
+import colors from "colorette"
 import open from "open"
 import { stringify } from "querystring"
 import { PackageManager } from "./detectPackageManager"

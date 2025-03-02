@@ -1,4 +1,4 @@
-import colors from "chalk"
+import colors from "colorette"
 import { existsSync, writeFileSync } from "fs-extra"
 import { posix } from "path"
 import semver from "semver"
