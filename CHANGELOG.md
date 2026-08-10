@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.1.2
+
+### Patch Changes
+
+- chore: merge upstream for tmp CVE
+
 ## 8.1.1
 
 ### Patch Changes
