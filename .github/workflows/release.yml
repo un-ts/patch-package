@@ -5,6 +5,11 @@ on:
     branches:
       - fork-release
 
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
@@ -37,4 +42,3 @@ jobs:
           publish: yarn changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
